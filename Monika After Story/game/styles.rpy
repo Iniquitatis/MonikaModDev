@@ -353,99 +353,50 @@ init python in mas_settings:
         renpy.restart_interaction()
 
 
-#START: Extras Menu Styles
-style mas_adjust_vbar_def:
-    xsize 18
-    base_bar Frame("gui/scrollbar/vertical_poem_bar.png", tile=False)
-    thumb "gui/slider/horizontal_hover_thumb.png"
-    bar_vertical True
+# INQ: New generic styles
+style generic_vbox is vbox
 
-style mas_adjust_vbar_dark:
-    xsize 18
-    base_bar Frame("gui/scrollbar/vertical_poem_bar_d.png", tile=False)
-    thumb "gui/slider/horizontal_hover_thumb.png"
-    bar_vertical True
+style generic_button is default:
+    hover_sound gui.hover_sound
+    activate_sound gui.activate_sound
 
-style mas_adjustable_button_text_def is default:
+style generic_button_text is default:
+    font gui.default_font
+    size gui.text_size
+    align (0.5, 0.5)
+    outlines []
+
+style generic_text is default:
+    font gui.default_font
+    size gui.text_size
+    align (0.5, 0.5)
+    outlines []
+
+style generic_vbox_light is generic_vbox
+
+style generic_vbox_dark is generic_vbox
+
+style generic_button_light is generic_button:
+    background Frame("mod_assets/buttons/generic/[prefix_]button.png", Borders(5, 5, 5, 5), tile=False)
+
+style generic_button_dark is generic_button:
+    background Frame("mod_assets/buttons/generic/[prefix_]button_d.png", Borders(5, 5, 5, 5), tile=False)
+
+style generic_button_text_light is generic_button_text:
     idle_color mas_ui.light_button_text_idle_color
     hover_color mas_ui.light_button_text_hover_color
-    outlines []
-    kerning 0.2
-    xalign 0.5
-    yalign 0.5
-    font gui.default_font
-    size gui.text_size
+    insensitive_color mas_ui.light_button_text_insensitive_color
 
-style mas_adjustable_button_text_dark is default:
+style generic_button_text_dark is generic_button_text:
     idle_color mas_ui.dark_button_text_idle_color
     hover_color mas_ui.dark_button_text_hover_color
-    outlines []
-    kerning 0.2
-    xalign 0.5
-    yalign 0.5
-    font gui.default_font
-    size gui.text_size
+    insensitive_color mas_ui.dark_button_text_insensitive_color
 
-style mas_mbs_button_def is default:
-#    width 35
-#    height 35
-#    tile False
-    idle_background  "mod_assets/buttons/squares/square_idle.png"
-    hover_background "mod_assets/buttons/squares/square_hover.png"
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
+style generic_text_light is generic_text:
+    color mas_ui.light_button_text_idle_color
 
-style mas_mbs_button_dark is default:
-#    width 35
-#    height 35
-#    tile False
-    idle_background  "mod_assets/buttons/squares/square_idle_d.png"
-    hover_background "mod_assets/buttons/squares/square_hover_d.png"
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
-
-style mas_adjustable_button_def is default:
-    idle_background Frame("mod_assets/buttons/squares/square_idle.png", left=3, top=3)
-    hover_background Frame("mod_assets/buttons/squares/square_hover.png", left=3, top=3)
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
-
-style mas_adjustable_button_dark is default:
-    idle_background Frame("mod_assets/buttons/squares/square_idle_d.png", left=3, top=3)
-    hover_background Frame("mod_assets/buttons/squares/square_hover_d.png", left=3, top=3)
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
-
-#START: Hotkey Buttons Styles
-
-style hkb_dark_vbox is vbox
-style hkb_dark_button is button_dark
-style hkb_dark_button_text is button_text_dark
-
-style hkb_dark_vbox:
-    spacing 0
-
-style hkb_dark_button is default:
-    properties gui.button_properties("hkb_dark_button")
-    idle_background "mod_assets/hkb_idle_background_d.png"
-    hover_background "mod_assets/hkb_hover_background_d.png"
-    insensitive_background "mod_assets/hkb_disabled_background_d.png"
-    ypadding 5
-
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
-
-style hkb_dark_button_text is default:
-    properties gui.button_text_properties("hkb_dark_button")
-    outlines []
-
-style hkb_dark_text is default:
-    xalign 0.5
-    size gui.text_size
-    font gui.default_font
+style generic_text_dark is generic_text:
     color mas_ui.dark_button_text_idle_color
-    kerning 0.2
-    outlines []
 
 
 #START: screens styles
@@ -536,6 +487,7 @@ style check_dark_button_text:
     font "gui/font/Halogen.ttf"
     outlines []
 
+# Outfit check buttons
 style outfit_check_dark_button:
     properties gui.button_properties("check_button")
     foreground "gui/button/check_[prefix_]foreground_d.png"
@@ -548,103 +500,160 @@ style outfit_check_dark_button_text:
     hover_color "#FFAA99"
     outlines []
 
-style choice_dark_vbox is vbox
-style choice_dark_button is button_dark
-style choice_dark_button_text is button_text_dark
+# START: Square buttons
 
-style choice_dark_vbox:
+# Choice buttons
+style choice_vbox is generic_vbox_light:
     xalign 0.5
     ypos 270
     yanchor 0.5
-
     spacing gui.choice_spacing
 
-style choice_dark_button is default:
-    properties gui.button_properties("choice_dark_button")
-    hover_sound gui.hover_sound
-    activate_sound gui.activate_sound
+style choice_dark_vbox is generic_vbox_dark:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+    spacing gui.choice_spacing
 
-style choice_button_text_dark is button_text_dark
+style choice_button is generic_button_light:
+    xysize (420, None)
+    padding (100, 5, 100, 5)
 
-style choice_button_text_dark is default:
-    properties gui.button_text_properties("choice_dark_button")
-    idle_color mas_ui.dark_button_text_idle_color
-    hover_color mas_ui.dark_button_text_hover_color
-    outlines []
+style choice_dark_button is generic_button_dark:
+    xysize (420, None)
+    padding (100, 5, 100, 5)
 
-style choice_dark_button_text is button_text_dark
+style choice_button_text is generic_button_text_light
 
-style choice_dark_button_text is default:
-    properties gui.button_text_properties("choice_dark_button")
-    idle_color mas_ui.dark_button_text_idle_color
-    hover_color mas_ui.dark_button_text_hover_color
-    outlines []
+style choice_dark_button_text is generic_button_text_dark
+
+# Talk choice buttons
+style talk_choice_vbox is choice_vbox:
+    xcenter 960
 
 style talk_choice_dark_vbox is choice_dark_vbox:
     xcenter 960
 
+style talk_choice_button is choice_button
+
 style talk_choice_dark_button is choice_dark_button
+
+style talk_choice_button_text is choice_button_text
+
 style talk_choice_dark_button_text is choice_dark_button_text
 
-style scrollable_menu_dark_button is choice_dark_button:
-    properties gui.button_properties("scrollable_menu_dark_button")
-
-style scrollable_menu_dark_button_text is choice_dark_button_text:
-    properties gui.button_text_properties("scrollable_menu_dark_button")
-    idle_color mas_ui.dark_button_text_idle_color
-    hover_color mas_ui.dark_button_text_hover_color
-
-style scrollable_menu_dark_vbox:
+# Scrollable menu buttons
+style scrollable_menu_vbox is generic_vbox_light:
     xalign 0.5
     ypos 270
     yanchor 0.5
-
     spacing 5
 
+style scrollable_menu_dark_vbox is generic_vbox_dark:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+    spacing 5
+
+style scrollable_menu_button is generic_button_light:
+    xysize (560, None)
+    padding (25, 5, 25, 5)
+
+style scrollable_menu_dark_button is generic_button_dark:
+    xysize (560, None)
+    padding (25, 5, 25, 5)
+
+style scrollable_menu_button_text is generic_button_text_light:
+    align (0.0, 0.0)
+    text_align 0.0
+
+style scrollable_menu_dark_button_text is generic_button_text_dark:
+    align (0.0, 0.0)
+    text_align 0.0
+
+# Other scrollable menu buttons
+style scrollable_menu_new_button is scrollable_menu_button
+
 style scrollable_menu_dark_new_button is scrollable_menu_dark_button
+
+style scrollable_menu_new_button_text is scrollable_menu_button_text:
+    italic True
 
 style scrollable_menu_dark_new_button_text is scrollable_menu_dark_button_text:
     italic True
 
+style scrollable_menu_special_button is scrollable_menu_button
+
 style scrollable_menu_dark_special_button is scrollable_menu_dark_button
+
+style scrollable_menu_special_button_text is scrollable_menu_button_text:
+    bold True
 
 style scrollable_menu_dark_special_button_text is scrollable_menu_dark_button_text:
     bold True
 
+style scrollable_menu_crazy_button is scrollable_menu_button
+
 style scrollable_menu_dark_crazy_button is scrollable_menu_dark_button
+
+style scrollable_menu_crazy_button_text is scrollable_menu_button_text:
+    italic True
+    bold True
 
 style scrollable_menu_dark_crazy_button_text is scrollable_menu_dark_button_text:
     italic True
     bold True
 
+# Two-pane scrollable menu buttons
+style twopane_scrollable_menu_vbox is generic_vbox_light:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+    spacing 5
+
+style twopane_scrollable_menu_dark_vbox is generic_vbox_dark:
+    xalign 0.5
+    ypos 270
+    yanchor 0.5
+    spacing 5
+
+style twopane_scrollable_menu_button is choice_button:
+    xysize (250, None)
+    padding (25, 5, 25, 5)
+
 style twopane_scrollable_menu_dark_button is choice_dark_button:
-    properties gui.button_properties("twopane_scrollable_menu_dark_button")
+    xysize (250, None)
+    padding (25, 5, 25, 5)
+
+style twopane_scrollable_menu_button_text is choice_button_text:
+    align (0.0, 0.0)
+    text_align 0.0
 
 style twopane_scrollable_menu_dark_button_text is choice_dark_button_text:
-    properties gui.button_text_properties("twopane_scrollable_menu_dark_button")
-    idle_color mas_ui.dark_button_text_idle_color
-    hover_color mas_ui.dark_button_text_hover_color
+    align (0.0, 0.0)
+    text_align 0.0
 
-style twopane_scrollable_menu_dark_special_button is twopane_scrollable_menu_dark_button
-
-
-style twopane_scrollable_menu_dark_special_button_text is twopane_scrollable_menu_dark_button_text:
-    bold True
-
+style twopane_scrollable_menu_new_button is twopane_scrollable_menu_button
 
 style twopane_scrollable_menu_dark_new_button is twopane_scrollable_menu_dark_button
 
+style twopane_scrollable_menu_new_button_text is twopane_scrollable_menu_button_text:
+    italic True
 
 style twopane_scrollable_menu_dark_new_button_text is twopane_scrollable_menu_dark_button_text:
     italic True
 
-style twopane_scrollable_menu_dark_vbox:
-    xalign 0.5
-    ypos 270
-    yanchor 0.5
+style twopane_scrollable_menu_special_button is twopane_scrollable_menu_button
 
-    spacing 5
+style twopane_scrollable_menu_dark_special_button is twopane_scrollable_menu_dark_button
 
+style twopane_scrollable_menu_special_button_text is twopane_scrollable_menu_button_text:
+    bold True
+
+style twopane_scrollable_menu_dark_special_button_text is twopane_scrollable_menu_dark_button_text:
+    bold True
+
+# Default buttons
 style button_def:
     properties gui.button_properties("button")
 
@@ -749,13 +758,13 @@ style frame_dark:
     background Frame("gui/frame_d.png", gui.frame_borders, tile=gui.frame_tile)
 
 style confirm_frame_def:
-    background Frame([ "gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
+    background Frame(["gui/confirm_frame.png", "gui/frame.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
 
 style confirm_frame_dark:
-    background Frame([ "gui/confirm_frame.png", "gui/frame_d.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
+    background Frame(["gui/confirm_frame.png", "gui/frame_d.png"], gui.confirm_frame_borders, tile=gui.frame_tile)
     padding gui.confirm_frame_borders.padding
     xalign .5
     yalign .5
@@ -1005,7 +1014,6 @@ style game_menu_label_dark_text:
 
 
 #START: islands event styles
-
 style island_dark_button is button_dark
 
 style island_dark_button is default:
@@ -1175,60 +1183,8 @@ define gui.button_dark_text_selected_color = gui.selected_color
 define gui.button_dark_text_insensitive_color = gui.insensitive_color
 define gui.button_dark_text_xalign = 0.0
 
-define gui.check_button_dark_borders = Borders(28, 4, 4, 4)
 define gui.check_button_def_borders = Borders(28, 4, 4, 4)
-
-define gui.scrollable_menu_button_dark_width = 560
-define gui.scrollable_menu_button_dark_height = None
-define gui.scrollable_menu_button_dark_tile = False
-define gui.scrollable_menu_button_dark_borders = Borders(25, 5, 25, 5)
-
-define gui.scrollable_menu_button_dark_text_font = gui.default_font
-define gui.scrollable_menu_button_dark_text_size = gui.text_size
-define gui.scrollable_menu_button_dark_text_xalign = 0.0
-define gui.scrollable_menu_button_dark_text_idle_color = mas_ui.dark_button_text_idle_color
-define gui.scrollable_menu_button_dark_text_hover_color = mas_ui.dark_button_text_hover_color
-
-define gui.hkb_dark_button_width = 120
-define gui.hkb_dark_button_height = None
-define gui.hkb_dark_button_tile = False
-define gui.hkb_dark_button_text_font = gui.default_font
-define gui.hkb_dark_button_text_size = gui.text_size
-define gui.hkb_dark_button_text_xalign = 0.5
-define gui.hkb_dark_button_text_idle_color = mas_ui.dark_button_text_idle_color
-define gui.hkb_dark_button_text_hover_color = mas_ui.dark_button_text_hover_color
-define gui.hkb_dark_button_text_insensitive_color = mas_ui.dark_button_text_insensitive_color
-define gui.hkb_dark_button_text_kerning = 0.2
-
-define gui.choice_dark_button_width = 420
-define gui.choice_dark_button_height = None
-define gui.choice_dark_button_tile = False
-define gui.choice_dark_button_borders = Borders(100, 5, 100, 5)
-define gui.choice_dark_button_text_font = gui.default_font
-define gui.choice_dark_button_text_size = gui.text_size
-define gui.choice_dark_button_text_xalign = 0.5
-define gui.choice_dark_button_text_idle_color = mas_ui.dark_button_text_idle_color
-define gui.choice_dark_button_text_hover_color = mas_ui.dark_button_text_hover_color
-
-define gui.scrollable_menu_dark_button_width = 560
-define gui.scrollable_menu_dark_button_height = None
-define gui.scrollable_menu_dark_button_tile = False
-define gui.scrollable_menu_dark_button_borders = Borders(25, 5, 25, 5)
-define gui.scrollable_menu_dark_button_text_font = gui.default_font
-define gui.scrollable_menu_dark_button_text_size = gui.text_size
-define gui.scrollable_menu_dark_button_text_xalign = 0.0
-define gui.scrollable_menu_dark_button_text_idle_color = mas_ui.dark_button_text_idle_color
-define gui.scrollable_menu_dark_button_text_hover_color = mas_ui.dark_button_text_hover_color
-
-define gui.twopane_scrollable_menu_dark_button_width = 250
-define gui.twopane_scrollable_menu_dark_button_height = None
-define gui.twopane_scrollable_menu_dark_button_tile = False
-define gui.twopane_scrollable_menu_dark_button_borders = Borders(25, 5, 25, 5)
-define gui.twopane_scrollable_menu_dark_button_text_font = gui.default_font
-define gui.twopane_scrollable_menu_dark_button_text_size = gui.text_size
-define gui.twopane_scrollable_menu_dark_button_text_xalign = 0.0
-define gui.twopane_scrollable_menu_dark_button_text_idle_color = mas_ui.dark_button_text_idle_color
-define gui.twopane_scrollable_menu_dark_button_text_hover_color = mas_ui.dark_button_text_hover_color
+define gui.check_button_dark_borders = Borders(28, 4, 4, 4)
 
 define gui.island_dark_button_height = None
 define gui.island_dark_button_width = 205
